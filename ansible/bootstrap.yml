@@ -18,8 +18,19 @@
         - python-dev
       when: ansible_os_family == "Debian"
 
+    - name: adding ansible ppa
+      apt_repository: repo='ppa:ansible/ansible'
+      when: ansible_os_family == "Debian"
+
     - name: installing ansible
-      pip: name=ansible state=present
+      apt: name=ansible state=latest
+      when: ansible_os_family == "Debian"
+
+#    - name: installing ansible
+#      pip: name=ansible state=present
+
+    - name: linking ansible hosts inventory
+      file: src=/etc/ansible/hosts path=/vagrant/ansible/hosts state=link
 
     - name: ensuring host file exists in host_vars
       stat: path=./host_vars/{{ inventory_hostname }}
@@ -44,7 +55,7 @@
       lineinfile: dest=./host_vars/{{ inventory_hostname }} regexp="^ansible_ssh_host{{ ':' }}" line="ansible_ssh_host{{ ':' }} {{ ansible_eth1.ipv4.address }}"
       delegate_to: localhost
       sudo: false
-      when: update_host_vars is defined and update_host_vars   
+      when: update_host_vars is defined and update_host_vars
 
     - name: updating ansible_ssh_key
       lineinfile: dest=./host_vars/{{ inventory_hostname }} regexp="^ansible_ssh_private_key_file{{ ':' }}" line="ansible_ssh_private_key_file{{ ':' }} {{ ssh_key_path }}"
