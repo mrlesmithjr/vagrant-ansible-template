@@ -97,8 +97,16 @@ git clone https://github.com/mrlesmithjr/vagrant-ansible-template.git
 cd vagrant-ansible-template
 ````
 Update nodes.yml
+
+spin up environment
 ````
 vagrant up
+````
+
+To run ansible within Vagrant nodes (Ex. playbook.yml not included)
+````
+vagrant ssh node
+ansible-playbook -i /vagrant/ansible/hosts /vagrant/ansible/playbook.yml --user vagrant
 ````
 
 License
