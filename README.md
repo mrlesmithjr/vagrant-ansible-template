@@ -3,6 +3,38 @@ Purpose
 
 Spin up vagrant multi node environment and manage all nodes using Ansible. Upon spinning up vagrant will provision each node using Ansible to bootstrap the nodes. During the bootstrap each node will have a respective host_vars configuration file which will be updated with their eth1 address and ssh key file location. This allows you to run Ansible plays from within your HostOS or within any of your vagrant nodes.
 
+Requirements
+============
+
+The following packages must be installed on your Host you intend on running all of this from. If Ansible is not available for your OS (Windows) You can modify the following lines in the Vagrantfile.
+
+From:
+````
+#  config.vm.provision :shell, path: "bootstrap.sh"
+#      node.vm.provision :shell, path: "bootstrap_ansible.sh"
+
+config.vm.provision :ansible do |ansible|
+  ansible.playbook = "bootstrap.yml"
+end
+````
+To:
+````
+  config.vm.provision :shell, path: "bootstrap.sh"
+      node.vm.provision :shell, path: "bootstrap_ansible.sh"
+
+#config.vm.provision :ansible do |ansible|
+#  ansible.playbook = "bootstrap.yml"
+#end
+````
+
+Ansible (http://www.ansible.com/home)
+
+VirtualBox (https://www.virtualbox.org/)
+
+Vagrant (https://www.vagrantup.com/)
+
+
+
 Variable Definitions
 ====================
 ````
