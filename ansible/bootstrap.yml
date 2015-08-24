@@ -4,7 +4,7 @@
   sudo: yes
   vars:
     - update_host_vars: true
-    - ssh_key_path: '../.vagrant/machines/{{ inventory_hostname }}/virtualbox/private_key'
+    - ssh_key_path: '.vagrant/machines/{{ inventory_hostname }}/virtualbox/private_key'
   roles:
   tasks:
     - name: updating apt cache
