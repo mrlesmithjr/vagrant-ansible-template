@@ -25,7 +25,7 @@ Define the nodes to spin up
 
 Provisions nodes by bootstrapping using Ansible
 ````
-ansible/bootstrap.yml
+bootstrap.yml
 ````
 Bootstrap Playbook
 ````
@@ -35,7 +35,7 @@ Bootstrap Playbook
   sudo: yes
   vars:
     - update_host_vars: true
-    - ssh_key_path: '../.vagrant/machines/{{ inventory_hostname }}/virtualbox/private_key'
+    - ssh_key_path: '.vagrant/machines/{{ inventory_hostname }}/virtualbox/private_key'
   roles:
   tasks:
     - name: updating apt cache
@@ -49,8 +49,19 @@ Bootstrap Playbook
         - python-dev
       when: ansible_os_family == "Debian"
 
+    - name: adding ansible ppa
+      apt_repository: repo='ppa:ansible/ansible'
+      when: ansible_os_family == "Debian"
+
     - name: installing ansible
-      pip: name=ansible state=present
+      apt: name=ansible state=latest
+      when: ansible_os_family == "Debian"
+
+#    - name: installing ansible
+#      pip: name=ansible state=present
+
+#    - name: linking ansible hosts inventory
+#      file: src=/etc/ansible/hosts path=/vagrant/ansible/hosts state=link
 
     - name: ensuring host file exists in host_vars
       stat: path=./host_vars/{{ inventory_hostname }}
@@ -88,6 +99,7 @@ Bootstrap Playbook
       delegate_to: localhost
       sudo: false
       when: update_host_vars is defined and update_host_vars
+
 ````
 
 Usage
@@ -106,7 +118,7 @@ vagrant up
 To run ansible within Vagrant nodes (Ex. playbook.yml not included)
 ````
 vagrant ssh node
-ansible-playbook -i /vagrant/ansible/hosts /vagrant/ansible/playbook.yml --user vagrant
+ansible-playbook -i /vagrant/hosts /vagrant/playbook.yml --user vagrant
 ````
 
 License
