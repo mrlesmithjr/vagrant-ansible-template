@@ -145,6 +145,9 @@ Bootstrap Playbook
 
 Usage
 =====
+
+http://everythingshouldbevirtual.com/learning-vagrant-and-ansible-provisioning
+
 ````
 git clone https://github.com/mrlesmithjr/vagrant-ansible-template.git
 cd vagrant-ansible-template
