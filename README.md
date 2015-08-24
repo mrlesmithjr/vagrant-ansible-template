@@ -161,7 +161,7 @@ vagrant up
 
 To run ansible from within Vagrant nodes (Ex. site.yml)
 ````
-vagrant ssh node
+vagrant ssh node-1 # or node-2; both work
 cd /vagrant
 ansible-playbook -i hosts site.yml
 ````
