@@ -150,7 +150,8 @@ vagrant up
 To run ansible within Vagrant nodes (Ex. playbook.yml not included)
 ````
 vagrant ssh node
-ansible-playbook -i /vagrant/hosts /vagrant/playbook.yml --user vagrant
+cd /vagrant
+ansible-playbook -i hosts playbook.yml
 ````
 
 License
