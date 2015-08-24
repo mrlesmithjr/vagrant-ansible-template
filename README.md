@@ -66,8 +66,12 @@ Bootstrap Playbook
   remote_user: vagrant
   sudo: yes
   vars:
-    - update_host_vars: true
+    - galaxy_roles:
+      - mrlesmithjr.bootstrap
+      - mrlesmithjr.base
+    - install_galaxy_roles: true
     - ssh_key_path: '.vagrant/machines/{{ inventory_hostname }}/virtualbox/private_key'
+    - update_host_vars: true
   roles:
   tasks:
     - name: updating apt cache
@@ -94,6 +98,11 @@ Bootstrap Playbook
 
 #    - name: linking ansible hosts inventory
 #      file: src=/etc/ansible/hosts path=/vagrant/ansible/hosts state=link
+
+    - name: installing ansible-galaxy roles
+      shell: ansible-galaxy install {{ item }} --force
+      with_items: galaxy_roles
+      when: install_galaxy_roles is defined and install_galaxy_roles
 
     - name: ensuring host file exists in host_vars
       stat: path=./host_vars/{{ inventory_hostname }}
@@ -140,18 +149,24 @@ Usage
 git clone https://github.com/mrlesmithjr/vagrant-ansible-template.git
 cd vagrant-ansible-template
 ````
-Update nodes.yml
+Update nodes.yml to reflect your desired nodes to spin up.
 
-spin up environment
+Spin up your environment
 ````
 vagrant up
 ````
 
-To run ansible within Vagrant nodes (Ex. playbook.yml not included)
+To run ansible from within Vagrant nodes (Ex. site.yml)
 ````
 vagrant ssh node
 cd /vagrant
-ansible-playbook -i hosts playbook.yml
+ansible-playbook -i hosts site.yml
+````
+
+To install ansible-galaxy roles within your HostOS
+````
+ansible-galaxy install mrlesmithjr.bootstrap
+ansible-galaxy install mrlesmithjr.base
 ````
 
 License
