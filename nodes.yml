@@ -9,6 +9,7 @@
   mem: 512
   cpus: 2
   ansible_ssh_host_ip: 192.168.202.33 #always create for Ansible provisioning within nodes
+  config_interfaces: "True"  #defines if interfaces below should be created or not...Set to "False" if you do not wish to create the interfaces.
   interfaces:  #Define additional interface settings
     - ip: 192.168.12.11
       auto_config: "True"
