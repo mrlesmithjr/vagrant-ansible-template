@@ -5,7 +5,7 @@
 # for Static define ip var
 # type should generally be private_network..Other option(s) are: public_network
 - name: node-1
-  box: ubuntu/trusty64
+  box: mrlesmithjr/trusty64
   mem: 512
   cpus: 1
   ansible_ssh_host_ip: 192.168.202.33 #always create for Ansible provisioning within nodes
