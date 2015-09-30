@@ -6,34 +6,13 @@ Spin up vagrant multi node environment and manage all nodes using Ansible. Upon 
 Requirements
 ============
 
-The following packages must be installed on your Host you intend on running all of this from. If Ansible is not available for your OS (Windows) You can modify the following lines in the Vagrantfile.
-
-From:
-````
-#  config.vm.provision :shell, path: "bootstrap.sh"
-#      node.vm.provision :shell, path: "bootstrap_ansible.sh"
-
-config.vm.provision :ansible do |ansible|
-  ansible.playbook = "bootstrap.yml"
-end
-````
-To:
-````
-  config.vm.provision :shell, path: "bootstrap.sh"
-      node.vm.provision :shell, path: "bootstrap_ansible.sh"
-
-#config.vm.provision :ansible do |ansible|
-#  ansible.playbook = "bootstrap.yml"
-#end
-````
+The following packages must be installed on your Host you intend on running all of this from. If Ansible is not available for your OS (Windows) you can check out the following http://everythingshouldbevirtual.com/ansible-using-ansible-on-windows-via-cygwin .
 
 Ansible (http://www.ansible.com/home)
 
 VirtualBox (https://www.virtualbox.org/)
 
 Vagrant (https://www.vagrantup.com/)
-
-
 
 Variable Definitions
 ====================
